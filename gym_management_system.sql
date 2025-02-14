@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 17, 2025 at 07:22 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Generation Time: Feb 14, 2025 at 09:02 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -41,7 +41,9 @@ CREATE TABLE `admin_staff` (
 --
 
 INSERT INTO `admin_staff` (`as_id`, `name`, `contact`, `email`, `role`, `user_id`) VALUES
-('AS00001', 'vipul', 9000000000, 'vipul@gmail.com', 'Admin', 'U00001');
+('AS001', 'vipul', 9000000000, 'vipul@gmail.com', 'Admin', 'U00001'),
+('AS002', 'demo user', 9000000000, 'demo12@gmail.com', 'Admin', 'U00008'),
+('AS003', 'aryan12', 9000000001, 'aryan@gmail.com', 'Staff', 'U00005');
 
 -- --------------------------------------------------------
 
@@ -67,6 +69,26 @@ INSERT INTO `application_form` (`form_id`, `name`, `email`, `description`, `role
 ('F00001', 'omkar', 'omkar@gmail.com', 'want to join as a instructor', 'Instructor', 'U00002', 1),
 ('F00002', 'Aryan Mali', 'aryan@gmail.com', 'i want work :(', 'Staff', 'U00005', 1),
 ('F00003', 'Nitin Thakur', 'thakurnitin@gmail.com', 'keep me on work in your gym', 'Instructor', 'U00006', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `images`
+--
+
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL,
+  `image_name` varchar(255) NOT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `uploaded_on` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`id`, `image_name`, `image_path`, `uploaded_on`) VALUES
+(1, 'gallery-1', 'C:\\xampp\\htdocs\\gms\\img\\gallery\\gallery-1.jpg', '2025-02-04 17:07:56');
 
 -- --------------------------------------------------------
 
@@ -128,6 +150,18 @@ CREATE TABLE `membership` (
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `membership`
+--
+
+INSERT INTO `membership` (`mem_id`, `title`, `type`, `price`, `duration`, `description`) VALUES
+('MEM001', 'Fitness', 'REGULAR', 2999, '3 months', '.....'),
+('MEM002', 'Diwali Offer', 'SEASONAL', 4999, '6 months', 'exclusive offer'),
+('MEM003', 'Trial Period', 'OTHER', 300, '3 days', '...'),
+('MEM004', 'Cardio', 'REGULAR', 2999, '3 months', 'best cardios for faster change'),
+('MEM005', 'Winter Offer', 'SEASONAL', 6999, '8 months', 'seatjsJdagnhe '),
+('MEM006', 'Trial Period', 'OTHER', 500, '5 days', '....');
+
 -- --------------------------------------------------------
 
 --
@@ -139,6 +173,15 @@ CREATE TABLE `notification` (
   `notification` varchar(80) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`n_id`, `notification`, `date`) VALUES
+('N001', 'tomorrow will be holiday', '2025-02-14'),
+('N002', 'gym will be closed today', '2025-02-14'),
+('N003', 'today gym is open', '2025-02-15');
 
 -- --------------------------------------------------------
 
@@ -158,12 +201,13 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `psswd`) VALUES
-('U00001', 'vipul', 'vipulbhoir027@gmail.com', '1111'),
+('U00001', 'vipul', 'vipulbhoir027@gmail.com', '11111111'),
 ('U00002', 'abcd', 'abcd@gmail.com', '1111'),
 ('U00003', 'user1', 'vipulbhoir027@gmail.com', '1111'),
 ('U00004', 'nitin', 'nitin@gmail.com', '1234'),
 ('U00005', 'aryanmali', 'aryan@gmail.com', '12345'),
-('U00006', 'Nitin Thakur', 'thakurnitin@gmail.com', '12345');
+('U00006', 'Nitin Thakur', 'thakurnitin@gmail.com', '12345'),
+('U00008', 'demo12', 'demo12@gmail.com', '11111111');
 
 --
 -- Indexes for dumped tables
@@ -182,6 +226,12 @@ ALTER TABLE `admin_staff`
 ALTER TABLE `application_form`
   ADD PRIMARY KEY (`form_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `images`
+--
+ALTER TABLE `images`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `instructor`
@@ -213,6 +263,16 @@ ALTER TABLE `notification`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `images`
+--
+ALTER TABLE `images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
