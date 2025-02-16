@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2025 at 09:02 PM
+-- Generation Time: Feb 16, 2025 at 07:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,9 +41,8 @@ CREATE TABLE `admin_staff` (
 --
 
 INSERT INTO `admin_staff` (`as_id`, `name`, `contact`, `email`, `role`, `user_id`) VALUES
-('AS001', 'vipul', 9000000000, 'vipul@gmail.com', 'Admin', 'U00001'),
-('AS002', 'demo user', 9000000000, 'demo12@gmail.com', 'Admin', 'U00008'),
-('AS003', 'aryan12', 9000000001, 'aryan@gmail.com', 'Staff', 'U00005');
+('AS00001', 'Vipul Bhoir', 9000000001, 'vipulbhoir027@gmail.com', 'Admin', 'U00001'),
+('AS00003', 'Aryan Mali', 9000000000, 'aryan@gmail.com', 'Admin', 'U00003');
 
 -- --------------------------------------------------------
 
@@ -69,6 +68,21 @@ INSERT INTO `application_form` (`form_id`, `name`, `email`, `description`, `role
 ('F00001', 'omkar', 'omkar@gmail.com', 'want to join as a instructor', 'Instructor', 'U00002', 1),
 ('F00002', 'Aryan Mali', 'aryan@gmail.com', 'i want work :(', 'Staff', 'U00005', 1),
 ('F00003', 'Nitin Thakur', 'thakurnitin@gmail.com', 'keep me on work in your gym', 'Instructor', 'U00006', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `equipment`
+--
+
+CREATE TABLE `equipment` (
+  `e_id` varchar(20) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  `date_of_purchase` date NOT NULL,
+  `quantity` int(20) NOT NULL,
+  `total_amount` int(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -102,17 +116,10 @@ CREATE TABLE `instructor` (
   `contact` bigint(30) NOT NULL,
   `email` varchar(50) NOT NULL,
   `specialist` varchar(70) NOT NULL,
-  `availability` varchar(255) DEFAULT NULL,
+  `fees` int(20) NOT NULL,
+  `availability` varchar(255) NOT NULL,
   `user_id` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `instructor`
---
-
-INSERT INTO `instructor` (`ins_id`, `name`, `contact`, `email`, `specialist`, `availability`, `user_id`) VALUES
-('I00001', 'Nitin Singh', 9000000000, 'nitin@gmail.com', 'cardio,bulking', 'Monday', 'U00004'),
-('I0002', 'Nitin Thakur', 9000000001, 'thakurnitin@gmail.com', 'yoga', 'Monday,Wednesday,Friday', 'U00006');
 
 -- --------------------------------------------------------
 
@@ -179,9 +186,7 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`n_id`, `notification`, `date`) VALUES
-('N001', 'tomorrow will be holiday', '2025-02-14'),
-('N002', 'gym will be closed today', '2025-02-14'),
-('N003', 'today gym is open', '2025-02-15');
+('N00001', 'tomorrow is holiday', '2025-02-16');
 
 -- --------------------------------------------------------
 
@@ -201,13 +206,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `psswd`) VALUES
-('U00001', 'vipul', 'vipulbhoir027@gmail.com', '11111111'),
-('U00002', 'abcd', 'abcd@gmail.com', '1111'),
-('U00003', 'user1', 'vipulbhoir027@gmail.com', '1111'),
-('U00004', 'nitin', 'nitin@gmail.com', '1234'),
-('U00005', 'aryanmali', 'aryan@gmail.com', '12345'),
-('U00006', 'Nitin Thakur', 'thakurnitin@gmail.com', '12345'),
-('U00008', 'demo12', 'demo12@gmail.com', '11111111');
+('U00001', 'vipul', 'vipulbhoir027@gmail.com', 'vipul123'),
+('U00002', 'demo', 'demo@gmail.com', 'demo1235'),
+('U00003', 'aryan', 'aryan@gmail.com', 'aryan123');
 
 --
 -- Indexes for dumped tables
@@ -226,6 +227,12 @@ ALTER TABLE `admin_staff`
 ALTER TABLE `application_form`
   ADD PRIMARY KEY (`form_id`),
   ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `equipment`
+--
+ALTER TABLE `equipment`
+  ADD PRIMARY KEY (`e_id`);
 
 --
 -- Indexes for table `images`
