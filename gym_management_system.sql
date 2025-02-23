@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 16, 2025 at 07:26 PM
+-- Generation Time: Feb 23, 2025 at 06:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -60,15 +60,6 @@ CREATE TABLE `application_form` (
   `viewed` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `application_form`
---
-
-INSERT INTO `application_form` (`form_id`, `name`, `email`, `description`, `role`, `user_id`, `viewed`) VALUES
-('F00001', 'omkar', 'omkar@gmail.com', 'want to join as a instructor', 'Instructor', 'U00002', 1),
-('F00002', 'Aryan Mali', 'aryan@gmail.com', 'i want work :(', 'Staff', 'U00005', 1),
-('F00003', 'Nitin Thakur', 'thakurnitin@gmail.com', 'keep me on work in your gym', 'Instructor', 'U00006', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -83,6 +74,27 @@ CREATE TABLE `equipment` (
   `quantity` int(20) NOT NULL,
   `total_amount` int(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `gallery`
+--
+
+CREATE TABLE `gallery` (
+  `img_id` varchar(10) NOT NULL,
+  `image_name` varchar(255) NOT NULL,
+  `image_path` varchar(255) NOT NULL,
+  `uploaded_by` varchar(10) NOT NULL,
+  `upload_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`img_id`, `image_name`, `image_path`, `uploaded_by`, `upload_date`) VALUES
+('IMG00001', 'blog-2.jpg', 'img/uploads/1739991837_blog-2.jpg', 'AS00001', '2025-02-19 19:03:57');
 
 -- --------------------------------------------------------
 
@@ -181,13 +193,6 @@ CREATE TABLE `notification` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`n_id`, `notification`, `date`) VALUES
-('N00001', 'tomorrow is holiday', '2025-02-16');
-
 -- --------------------------------------------------------
 
 --
@@ -208,7 +213,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `username`, `email`, `psswd`) VALUES
 ('U00001', 'vipul', 'vipulbhoir027@gmail.com', 'vipul123'),
 ('U00002', 'demo', 'demo@gmail.com', 'demo1235'),
-('U00003', 'aryan', 'aryan@gmail.com', 'aryan123');
+('U00003', 'aryan', 'aryan@gmail.com', 'aryan123'),
+('U00004', 'jidnyasa', 'jid@gmail.com', 'jid12345'),
+('U00005', 'newuser1', 'newuser1@gmail.com', 'newuser123');
 
 --
 -- Indexes for dumped tables
@@ -233,6 +240,13 @@ ALTER TABLE `application_form`
 --
 ALTER TABLE `equipment`
   ADD PRIMARY KEY (`e_id`);
+
+--
+-- Indexes for table `gallery`
+--
+ALTER TABLE `gallery`
+  ADD PRIMARY KEY (`img_id`),
+  ADD KEY `uploaded_by` (`uploaded_by`);
 
 --
 -- Indexes for table `images`
@@ -296,6 +310,12 @@ ALTER TABLE `admin_staff`
 --
 ALTER TABLE `application_form`
   ADD CONSTRAINT `application_form_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Constraints for table `gallery`
+--
+ALTER TABLE `gallery`
+  ADD CONSTRAINT `gallery_ibfk_1` FOREIGN KEY (`uploaded_by`) REFERENCES `admin_staff` (`as_id`);
 
 --
 -- Constraints for table `instructor`
